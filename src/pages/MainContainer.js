@@ -2,7 +2,7 @@ import React from 'react';
 
 import NextDaysWeather from '../components/NextDaysWeather';
 import Main from './Main';
-import Search from '../components/Search';
+// import Search from '../components/Search';
 
 
 class MainContainer extends React.Component {
@@ -20,8 +20,6 @@ class MainContainer extends React.Component {
       nextDays: [],
       nextWeather: [],
       valueFrom:  '',
-      lat: 0,
-      lon: 0,
       loading: false,
     };
 
@@ -53,10 +51,7 @@ class MainContainer extends React.Component {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
 
-    this.setState({lat: lat, lon: lon,});
-
-    await this.getData(this.state.lat, this.state.lon);
-    // await this.getData(-34, -64);
+    await this.getData(lat, lon);
 
   }
 
@@ -126,34 +121,6 @@ class MainContainer extends React.Component {
 
   }
 
-  handleChange = e => {
-    console.log(e.target.value)
-    this.setState({valueForm: e.target.value})
-  }
-
-  handleSubmit = async e => {
-
-    e.preventDefault();
-
-    const API_KEY = `c196bcdce7bad59b552b30dbfefd9b2b`;
-    const API_URL = `https://api.openweathermap.org/data/2.5`
-    const response = await fetch(`${API_URL}/weather?q=${this.state.valueForm}&appid=${API_KEY}`);
-    const data = await response.json();
-
-    const lat = data.coord.lat;
-    const lon = data.coord.lon;
-
-    this.setState({lat: lat, lon: lon});
-    await this.getData(this.state.lat, this.state.lon);
-    console.log(
-      this.state.lat,
-      this.state.lon,
-    )
-    console.log(data.coord.lat)
-    console.log(data.coord.lon)
-
-  }
-
   render = () => {
 
     console.log(this.state.data);
@@ -171,11 +138,6 @@ class MainContainer extends React.Component {
     return(
 
           <div>
-
-            <Search
-              onChange={this.handleChange}
-              onSubmit={this.handleSubmit}
-            />
 
             <Main
               today={this.state.date}

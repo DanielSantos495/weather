@@ -3,7 +3,11 @@ import React from 'react';
 function Header() {
 
   return(
-    <header>Weather</header>
+    <header className="header">
+      <div className="container">
+        <h1>Weather</h1>
+      </div>
+    </header>
   );
 }
 

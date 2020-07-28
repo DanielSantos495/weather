@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SkeletonComponent from '../components/SkeletonComponent';
 import NextDaysWeather from '../components/NextDaysWeather';
 import Main from './Main';
 // import Search from '../components/Search';
@@ -20,7 +21,7 @@ class MainContainer extends React.Component {
       nextDays: [],
       nextWeather: [],
       valueFrom:  '',
-      loading: false,
+      loading: true,
     };
 
   }
@@ -28,7 +29,8 @@ class MainContainer extends React.Component {
   componentDidMount = () => {
 
     this.geolocation(this.location);
-    this.nextDays()
+    this.nextDays();
+    this.setState({loading: false});
 
   }
 
@@ -121,6 +123,15 @@ class MainContainer extends React.Component {
 
   }
 
+  convertKelvinToCent = temp =>  {
+    const rest = temp - 273.15;
+    if (rest % 1 === 0) {
+      return rest
+    } else {
+      return rest.toFixed(1);
+    }
+  }
+
   render = () => {
 
     console.log(this.state.data);
@@ -132,12 +143,12 @@ class MainContainer extends React.Component {
     const place = this.state.data.timezone;
 
     if (this.state.loading) {
-      return <div>Loading...</div>
+      return <SkeletonComponent />
     }
 
     return(
 
-          <div>
+          <main className="main">
 
             <Main
               today={this.state.date}
@@ -145,10 +156,10 @@ class MainContainer extends React.Component {
               icon={weather.icon}
               main={weather.main}
               description={weather.description}
-              temp={current.temp}
+              temp={this.convertKelvinToCent(current.temp)}
               clouds={current.clouds}
               humidity={current.humidity}
-              feels={current.feels_like}
+              feels={this.convertKelvinToCent(current.feels_like)}
 
              />
 
@@ -157,7 +168,7 @@ class MainContainer extends React.Component {
               nextWeather={nextWeather}
             />
 
-          </div>
+          </main>
 
 
     );

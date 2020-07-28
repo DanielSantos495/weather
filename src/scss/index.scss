@@ -1,2 +1,9 @@
+@import './utils/fonts.scss';
 @import './utils/reset.scss';
+@import './utils/variables.scss';
+@import './utils/container.scss';
 @import './layout/header.scss';
+@import './layout/main.scss';
+@import './components/skeleton.scss';
+@import './components/weatherCurrent.scss';
+@import './components/weatherNext.scss';

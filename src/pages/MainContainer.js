@@ -30,7 +30,8 @@ class MainContainer extends React.Component {
 
     this.geolocation(this.location);
     this.nextDays();
-    this.setState({loading: false});
+    // this.setState({loading: false});
+    console.log('data');
 
   }
 
@@ -52,14 +53,14 @@ class MainContainer extends React.Component {
 
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-
+    console.log(lat,' hpña')
     await this.getData(lat, lon);
 
   }
 
   getData = async (lat, lon) => {
 
-    this.setState({loading: true});
+    // this.setState({loading: true});
 
     const latitude = lat;
     const longitude = lon;
